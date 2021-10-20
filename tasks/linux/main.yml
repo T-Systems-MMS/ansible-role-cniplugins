@@ -7,13 +7,13 @@
 
 - name: donwload plugin
   get_url:
-    url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugin_version }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    url: "{{ cni_plugin_release_url }}/{{ cni_plugin_release_version }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     dest: "{{ cni_plugin_dir }}"
     mode: 0640
 
 - name: extract file
   unarchive:
-    src: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    src: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     dest: "{{ cni_plugin_dir }}"
 
 - name: enable container routing through iptables
@@ -30,5 +30,5 @@
 
 - name: remove downloaded compressed file
   file:
-    path: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    path: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     state: absent
