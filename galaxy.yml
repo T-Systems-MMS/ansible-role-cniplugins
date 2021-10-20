@@ -1,0 +1,32 @@
+namespace: t_systems_mms
+name: cniplugins
+version: 1.0.0
+readme: README.md
+authors:
+  - Sebastian Gumprich <sebastian.gumprich@t-systems.com>
+  - Sören Henning <soeren.henning@t-systems.com>
+description: >-
+  This Role installs cni plugins maintained by containernetworking team. (https://github.com/containernetworking/plugins)
+license:
+  - GPL-2.0-or-later
+license_file: ''
+tags:
+  - cni
+  - plugins
+  - container
+dependencies: {}
+repository: 'https://github.com/T-Systems-MMS/ansible-role-cniplugins'
+documentation: 'https://github.com/T-Systems-MMS/ansible-role-cniplugins'
+homepage: 'https://github.com/T-Systems-MMS/ansible-role-cniplugins'
+issues: 'https://github.com/T-Systems-MMS/ansible-role-cniplugins/issues'
+build_ignore:
+  - vsc-snippets
+  - codecov.yml
+  - .github
+  - hacking
+  - requirements.txt
+  - test-requirements.txt
+  - tests
+  - .tox
+  - tox.ini
+  - .yamllint
