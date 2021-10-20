@@ -4,4 +4,4 @@
   tasks:
     - name: "Include ansible-role-cniplugins"
       include_role:
-        name: "t_systems_mms.ansible_role_cniplugins"
+        name: "t_systems_mms.cniplugins"

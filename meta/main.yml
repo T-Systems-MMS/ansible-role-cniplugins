@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: ansible_role_cniplugins
+  role_name: cniplugins
   author: t_systems_mms
   description: Install cni container plugin on linux servers
   license: GPLv3
