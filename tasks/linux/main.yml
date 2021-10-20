@@ -1,0 +1,34 @@
+---
+- name: ensure target directory exists
+  file:
+    path: "{{ cni_plugin_dir }}"
+    state: directory
+    mode: 0755
+
+- name: donwload plugin
+  get_url:
+    url: "https://github.com/containernetworking/plugins/releases/download/{{ cni_plugin_version }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    dest: "{{ cni_plugin_dir }}"
+    mode: 0640
+
+- name: extract file
+  unarchive:
+    src: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    dest: "{{ cni_plugin_dir }}"
+
+- name: enable container routing through iptables
+  sysctl:
+    name: "{{ item }}"
+    state: present
+    value: 1
+    reload: true
+  with_items:
+  - net.bridge.bridge-nf-call-iptables
+  - net.bridge.bridge-nf-call-arptables
+  - net.bridge.bridge-nf-call-ip6tables
+  become: true
+
+- name: remove downloaded compressed file
+  file:
+    path: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_version }}.tgz"
+    state: absent

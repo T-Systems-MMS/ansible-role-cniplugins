@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ansible-role-cniplugins"
+      include_role:
+        name: "t_systems_mms.ansible_role_cniplugins"

@@ -1,0 +1,34 @@
+---
+scenario:
+  name: default
+
+driver:
+  name: docker
+platforms:
+  - name: docker-ubuntu
+    image: ubuntu:bionic
+
+provisioner:
+  name: ansible
+  lint: |
+    yamllint .
+    ansible-lint
+    flake8
+
+lint: |
+    yamllint .
+    ansible-lint
+    flake8
+verifier:
+  name: testinfra
+  env:
+    # get rid of the DeprecationWarning messages of third-party libs,
+    # see https://docs.pytest.org/en/latest/warnings.html#deprecationwarning-and-pendingdeprecationwarning
+    PYTHONWARNINGS: "ignore:.*U.*mode is deprecated:DeprecationWarning"
+  lint: |
+    yamllint .
+    ansible-lint
+    flake8
+  options:
+    # show which tests where executed in test output
+    v: 1

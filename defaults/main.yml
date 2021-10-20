@@ -1,0 +1,3 @@
+---
+cni_plugin_dir: /opt/cni/bin
+cni_plugin_version: v1.0.0
