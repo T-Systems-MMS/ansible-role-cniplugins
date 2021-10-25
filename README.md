@@ -19,7 +19,11 @@ All variables are also listed in default values.
 
 ## Dependencies
 
-None.
+```
+
+ansible-galaxy collection install ansible.posix
+
+```
 
 ## License
 

@@ -1,9 +1,8 @@
 ---
 - name: ensure target directory exists
   file:
-    path: "{{ cni_plugin_dir }}"
+    path: "/opt/cni/bin"
     state: directory
-    mode: 0755
 
 - name: donwload plugin
   get_url:
@@ -13,11 +12,12 @@
 
 - name: extract file
   unarchive:
+    remote_src: true
     src: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     dest: "{{ cni_plugin_dir }}"
 
 - name: enable container routing through iptables
-  sysctl:
+  ansible.posix.sysctl:
     name: "{{ item }}"
     state: present
     value: 1
@@ -27,6 +27,7 @@
   - net.bridge.bridge-nf-call-arptables
   - net.bridge.bridge-nf-call-ip6tables
   become: true
+  ignore_errors: true # https://github.com/geerlingguy/docker-debian10-ansible/issues/2
 
 - name: remove downloaded compressed file
   file:
