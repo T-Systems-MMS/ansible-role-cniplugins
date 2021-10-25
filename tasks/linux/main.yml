@@ -1,20 +1,30 @@
 ---
 - name: ensure target directory exists
   file:
-    path: "/opt/cni/bin"
+    path: "{{ cni_plugin_dir }}"
     state: directory
+
+- name: check if release package is already present
+  stat:
+    path: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
+  register: plugin_release
 
 - name: donwload plugin
   get_url:
     url: "{{ cni_plugin_release_url }}/{{ cni_plugin_release_version }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     dest: "{{ cni_plugin_dir }}"
     mode: 0640
+  changed_when: false
+  when:
+  - not plugin_release.stat.exists
 
 - name: extract file
   unarchive:
     remote_src: true
     src: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     dest: "{{ cni_plugin_dir }}"
+  when:
+  - not plugin_release.stat.exists
 
 - name: enable container routing through iptables
   ansible.posix.sysctl:
@@ -33,3 +43,6 @@
   file:
     path: "{{ cni_plugin_dir }}/cni-plugins-linux-amd64-{{ cni_plugin_release_version }}.tgz"
     state: absent
+  changed_when: false
+  when:
+  - cni_plugin_remove_download

@@ -21,7 +21,7 @@ All variables are also listed in default values.
 
 ```
 
-ansible-galaxy collection install ansible.posix
+ansible-galaxy install -r requirements.yml
 
 ```
 
