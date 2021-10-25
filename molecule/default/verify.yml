@@ -1,10 +1,18 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
-  gather_facts: false
   tasks:
-  - name: Example assertion
+  - name: load defaults from role
+    include_vars: "../../defaults/main.yml"
+
+  - name: check the return string of the downloaded binary
+    command: "{{ cni_plugin_dir }}/bridge"
+    register: result
+
+  - debug:
+      var: result
+
+  - name: check that a downloaded binary exists
     assert:
-      that: true
+      that:
+        - "cni_plugin_release_version in result.stderr"
