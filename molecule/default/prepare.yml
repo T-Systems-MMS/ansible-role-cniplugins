@@ -1,0 +1,9 @@
+---
+- name: prepare molecule environment
+  hosts: all
+  become: true
+  tasks:
+    - name: set ansible_python_interpreter to "/usr/bin/python3" on fedora
+      set_fact:
+        ansible_python_interpreter: "/usr/bin/python3"
+      when: ansible_facts.distribution == 'Fedora'

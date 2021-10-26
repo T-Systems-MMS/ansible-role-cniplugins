@@ -2,6 +2,10 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: workaround for https://github.com/ansible/ansible/issues/66304
+      set_fact:
+        ansible_virtualization_type: "docker"
+
     - name: "Include ansible-role-cniplugins"
       include_role:
         name: "t_systems_mms.cniplugins"
