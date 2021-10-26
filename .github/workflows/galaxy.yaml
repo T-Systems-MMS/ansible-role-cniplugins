@@ -1,0 +1,27 @@
+---
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+defaults:
+  run:
+    working-directory: 't_systems_mms.cniplugins'
+
+jobs:
+
+  release:
+    name: ansible galaxy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 't_systems_mms.cniplugins'
+
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.1.0
+        with:
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
