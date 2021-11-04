@@ -16,6 +16,7 @@ All variables are also listed in default values.
 | cni_plugin_dir | yes | /opt/cni/bin | directory where downloaded file and plugins are stored
 | cni_plugin_release_url | yes | https://github.com/containernetworking/plugins/releases/download | Release url for cni plugins
 | cni_plugin_release_version | yes | v1.0.1 | Version of cni-plugins
+| cni_plugin_custom_sysctl_conf | no | false | Whether the modification of sysctl.conf is allowed to fail 
 
 ## Dependencies
 
