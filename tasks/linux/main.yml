@@ -19,9 +19,9 @@
     state: present
     value: 1
     reload: true
+    ignoreerrors: "{{ cni_plugin_custom_sysctl_conf | bool }}"
   with_items:
     - net.bridge.bridge-nf-call-iptables
     - net.bridge.bridge-nf-call-arptables
     - net.bridge.bridge-nf-call-ip6tables
-  ignore_errors: "{{ cni_plugin_custom_sysctl_conf | bool }}"
   when: ansible_virtualization_type not in ['docker', 'lxc', 'openvz']
