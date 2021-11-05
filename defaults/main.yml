@@ -2,3 +2,4 @@
 cni_plugin_dir: /opt/cni/bin
 cni_plugin_release_version: v1.0.1
 cni_plugin_release_url: https://github.com/containernetworking/plugins/releases/download
+cni_plugin_sysctl_ignore_unknown_keys: false

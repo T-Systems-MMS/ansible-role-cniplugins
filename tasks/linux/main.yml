@@ -19,6 +19,7 @@
     state: present
     value: 1
     reload: true
+    ignoreerrors: "{{ cni_plugin_sysctl_ignore_unknown_keys | bool }}"
   with_items:
     - net.bridge.bridge-nf-call-iptables
     - net.bridge.bridge-nf-call-arptables
